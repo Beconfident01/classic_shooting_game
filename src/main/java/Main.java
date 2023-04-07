@@ -4,7 +4,7 @@ public class Main {
         Player player = new Player();
 
         System.out.println("게임 종료!");
-        System.out.println("점수: " + game.getScore());
+
     }
 }
 
