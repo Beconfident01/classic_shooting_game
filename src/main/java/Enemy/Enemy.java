@@ -1,3 +1,5 @@
+package Enemy;
+
 public class Enemy {
     private int x; // 적군의 x좌표
     private int y; // 적군의 y좌표
