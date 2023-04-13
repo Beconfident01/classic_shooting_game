@@ -17,6 +17,8 @@ public class Game extends JFrame {
 
     private boolean isStartScreen, isLoadingScreen, isGameScreen;
 
+    public static GamePlay gamePlay = new GamePlay();
+
     public Game() {
         //창 제목
         setTitle("Shooting Game");
@@ -61,6 +63,8 @@ public class Game extends JFrame {
         };
         //로딩화면에서 3초 후 게임화면으로 넘어가기
         loadingTimer.schedule(loadingTask,3000);
+
+        gamePlay.start();
     }
 
 
@@ -87,6 +91,8 @@ public class Game extends JFrame {
         }
         if(isGameScreen){
             g.drawImage(gameScreen,0,0,null);
+            //게임화면일 때, gameDraw 메서드 실행
+            gamePlay.gameDraw(g);
         }
         //화면에 이미지를 그린 후 화면을 갱신하여 이미지 표시
         this.repaint();
@@ -95,17 +101,45 @@ public class Game extends JFrame {
         @Override
         public void keyPressed(KeyEvent e){
             switch(e.getKeyCode()){
+                case KeyEvent.VK_UP:
+                    gamePlay.setUp(true);
+                    break;
+                case KeyEvent.VK_DOWN:
+                    gamePlay.setDown(true);
+                    break;
+                case KeyEvent.VK_LEFT:
+                    gamePlay.setLeft(true);
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    gamePlay.setRight(true);
+                    break;
                 //ENTER를 눌렀을 때 게임 시작
                 case KeyEvent.VK_ENTER:
-                    if(isStartScreen){
-                        gameStart();
-                    }
+                    if(isStartScreen) gameStart();
                     break;
                 //ESC 키를 눌렀을 때 프로그램이 종료
                 case KeyEvent.VK_ESCAPE:
                     //프로그램을 정상적으로 종료
                     System.exit(0);
                     break;
+            }
+        }
+        //키를 뗐을 때, false로 바꿔준다.
+        public void keyReleased(KeyEvent e){
+            switch(e.getKeyCode()){
+                case KeyEvent.VK_UP:
+                    gamePlay.setUp(false);
+                    break;
+                case KeyEvent.VK_DOWN:
+                    gamePlay.setDown(false);
+                    break;
+                case KeyEvent.VK_LEFT:
+                    gamePlay.setLeft(false);
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    gamePlay.setRight(false);
+                    break;
+
             }
         }
     }
