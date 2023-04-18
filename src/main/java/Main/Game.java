@@ -59,12 +59,13 @@ public class Game extends JFrame {
             public void run() {
                 isLoadingScreen =false;
                 isGameScreen =true;
+                gamePlay.start();
             }
         };
         //로딩화면에서 3초 후 게임화면으로 넘어가기
         loadingTimer.schedule(loadingTask,3000);
 
-        gamePlay.start();
+
     }
 
 
