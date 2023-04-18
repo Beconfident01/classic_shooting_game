@@ -113,6 +113,9 @@ public class Game extends JFrame {
                 case KeyEvent.VK_RIGHT:
                     gamePlay.setRight(true);
                     break;
+                case KeyEvent.VK_SPACE:
+                    gamePlay.setShooting(true);
+                    break;
                 //ENTER를 눌렀을 때 게임 시작
                 case KeyEvent.VK_ENTER:
                     if(isStartScreen) gameStart();
@@ -138,6 +141,9 @@ public class Game extends JFrame {
                     break;
                 case KeyEvent.VK_RIGHT:
                     gamePlay.setRight(false);
+                    break;
+                case KeyEvent.VK_SPACE:
+                    gamePlay.setShooting(false);
                     break;
 
             }
