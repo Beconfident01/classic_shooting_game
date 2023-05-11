@@ -74,6 +74,18 @@ public class GamePlay extends Thread{
         for(int i = 0;i<playerAttackList.size();i++){
             playerAttack = playerAttackList.get(i);
             playerAttack.fire();
+
+            for(int j=0;j<enemyList.size();j++){
+                enemy =enemyList.get(j);
+                if(playerAttack.x>enemy.x && playerAttack.x < enemy.x +enemy.width && playerAttack.y > enemy.y && playerAttack.y < enemy.y +enemy.height){
+                    enemy.hp -= playerAttack.attack;
+                    playerAttackList.remove(playerAttack);
+                }
+                if(enemy.hp <=0){
+                    enemyList.remove(enemy);
+
+                }
+            }
         }
     }
 
@@ -102,6 +114,11 @@ public class GamePlay extends Thread{
         for(int i =0;i < enemyAttackList.size(); i++) {
             enemyAttack =enemyAttackList.get(i);
             enemyAttack.fire();
+
+            if(enemyAttack.x > playerX & enemyAttack.x < playerX + playerWidth && enemyAttack.y > playerY +playerHeight){
+                playerHp -= enemyAttack.attack;
+                enemyAttackList.remove(enemyAttack);
+            }
         }
     }
     //게임 안의 요소들을 그려주는 메소드
@@ -112,6 +129,10 @@ public class GamePlay extends Thread{
     //플레이어를 그려주는 메소드
     public void playerDraw(Graphics g) {
         g.drawImage(player, playerX, playerY, null);
+        g.setColor(Color.GREEN);
+        g.fillRect(10,   650, playerHp * 10, 20);
+        g.setColor(Color.BLACK);
+        g.drawString("HP", 10, 665);
         for (int i = 0; i < playerAttackList.size(); i++) {
             playerAttack = playerAttackList.get(i);
             g.drawImage(playerAttack.image, playerAttack.x, playerAttack.y, null);
@@ -122,6 +143,8 @@ public class GamePlay extends Thread{
         for(int i =0; i<enemyList.size(); i++){
             enemy =enemyList.get(i);
             g.drawImage(enemy.image,enemy.x,enemy.y,null);
+            g.setColor(Color.RED);
+            g.fillRect(enemy.x+1,enemy.y -20, enemy.hp * 6,10 );
         }
         for (int i =0; i < enemyAttackList.size();i++){
             enemyAttack =enemyAttackList.get(i);
